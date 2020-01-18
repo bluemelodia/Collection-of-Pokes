@@ -1,7 +1,18 @@
 <!-- data binding to properties --> 
 <!-- Interpolation refers to embedding expressions into marked up text. The text between the braces is often the name of a component property. Angular replaces that name with the string value of the corresponding component property. -->
 
+<!-- Two-way data binding: data flows from the component class out to the screen and from the screen back to the class. 
+
+[(ngModel)] is Angular's two-way data binding syntax.
+
+Here it binds the pokemon.name property to the HTML textbox so that data can flow in both directions: from the pokemon.name property to the textbox, and from the textbox back to the pokemon.name. -->
+
 <!-- use a pipe for the species, pipes are good for formatting display data -->
-<h1>{{pokemon.dex}} - {{pokemon.species | uppercase}}</h1>
+<h1>{{pokemon.dex}} - {{pokemon.species | uppercase}} - {{pokemon.name}}</h1>
+<div>
+	<label>Name: 
+		<input [(ngModel)]="pokemon.name" placeholder={{pokemon.species}}/>
+	</label>
+</div>
 <div><span>Type: {{pokemon.type}}</span></div>
 <div><span>CP: {{pokemon.cp}}</span></div>

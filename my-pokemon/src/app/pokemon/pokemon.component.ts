@@ -24,6 +24,7 @@ export class PokemonComponent implements OnInit {
   	dex: 246,
   	cp: 1040,
   	species: "Larvitar",
+  	name: "Guac",
   	type: "Rock"
   };
 

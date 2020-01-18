@@ -3,4 +3,5 @@ export class Pokemon {
 	dex: number;
 	species: string;
 	type: string;
+	name: string;
 }
