@@ -8,6 +8,17 @@
 Here it binds the pokemon.name property to the HTML textbox so that data can flow in both directions: from the pokemon.name property to the textbox, and from the textbox back to the pokemon.name. -->
 
 <!-- use a pipe for the species, pipes are good for formatting display data -->
+
+<h2>My Pokemon</h2>
+<ul class="pokemons">
+	<!-- repeater directive, repeats the host element (in this case, li) for each element in a list -->
+	<li *ngFor="let pokemon of pokemons">
+		<span class="pokeid">
+			{{pokemon.dex}} - {{pokemon.species | uppercase}}
+		</span> {{pokemon.name}}
+	</li>
+</ul>
+
 <h1>{{pokemon.dex}} - {{pokemon.species | uppercase}} - {{pokemon.name}}</h1>
 <div>
 	<label>Name: 

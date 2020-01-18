@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../pokemon';
 
+import { POKEMONS } from '../mock-pokemon';
+
 /* 
 
 Decorator function that specifies the Angular metadata for the component.
@@ -27,6 +29,7 @@ export class PokemonComponent implements OnInit {
   	name: "Guac",
   	type: "Rock"
   };
+  pokemons = POKEMONS;
 
   constructor() { }
 
