@@ -11,19 +11,32 @@ Here it binds the pokemon.name property to the HTML textbox so that data can flo
 
 <h2>My Pokemon</h2>
 <ul class="pokemons">
-	<!-- repeater directive, repeats the host element (in this case, li) for each element in a list -->
-	<li *ngFor="let pokemon of pokemons">
+	<!-- ngFor is a repeater directive, repeats the host element (in this case, li) for each element in a list
+
+		event binding syntax - parentheses around click tells Angular
+		to listen for the <li> element's click event. On user click, 
+		Angular executes the onSelect(pokemon) expression
+
+		class binding - allows us to add/remove a CSS class conditionally.
+		when the condition is true, Angular adds the selected CSS class,
+		else it removes the class. -->
+	<li *ngFor="let pokemon of pokemons" 
+	   (click)="onSelect(pokemon)"
+ 	   [class.selected]="pokemon === selectedPokemon">
 		<span class="pokeid">
 			{{pokemon.dex}} - {{pokemon.species | uppercase}}
 		</span> {{pokemon.name}}
 	</li>
 </ul>
 
-<h1>{{pokemon.dex}} - {{pokemon.species | uppercase}} - {{pokemon.name}}</h1>
-<div>
-	<label>Name: 
-		<input [(ngModel)]="pokemon.name" placeholder={{pokemon.species}}/>
-	</label>
+<!-- when selectedPokemon is undefined, ngIf removes the detail from the DOM, hence there are no selectedPokemon bindings to consider. When the user picks a Pokemon, selectedPokemon has a value, and ngIf puts the Pokemon detail into the DOM. -->
+<div *ngIf="selectedPokemon">
+	<h2>{{selectedPokemon.dex}} - {{selectedPokemon.species | uppercase}} - {{selectedPokemon.name}}</h2>
+	<div>
+		<label>Name: 
+			<input [(ngModel)]="selectedPokemon.name" placeholder={{selectedPokemon.species}}/>
+		</label>
+	</div>
+	<div><span>Type: {{selectedPokemon.type}}</span></div>
+	<div><span>CP: {{selectedPokemon.cp}}</span></div>
 </div>
-<div><span>Type: {{pokemon.type}}</span></div>
-<div><span>CP: {{pokemon.cp}}</span></div>

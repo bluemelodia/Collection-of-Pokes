@@ -22,13 +22,7 @@ The CLI generated three metadata properties:
 }) /* Always export the component class so that it can be imported elsewhere, like in the AppModule. */
 export class PokemonComponent implements OnInit {
 
-  pokemon: Pokemon = {
-  	dex: 246,
-  	cp: 1040,
-  	species: "Larvitar",
-  	name: "Guac",
-  	type: "Rock"
-  };
+  selectedPokemon: Pokemon;
   pokemons = POKEMONS;
 
   constructor() { }
@@ -40,4 +34,7 @@ export class PokemonComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSelect(pokemon: Pokemon): void {
+  	this.selectedPokemon = pokemon;
+  }
 }

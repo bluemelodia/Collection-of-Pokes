@@ -2,6 +2,13 @@ import { Pokemon } from './pokemon';
 
 export const POKEMONS: Pokemon[] = [
 	{
+	  	dex: 246,
+	  	cp: 1040,
+	  	species: "Larvitar",
+	  	name: "Cauliflower",
+	  	type: "Rock"
+  	},
+	{
 	  	dex: 384,
 	  	cp: 3834,
 	  	species: "Tyranitar",
