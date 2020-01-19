@@ -65,4 +65,9 @@ export class PokemonDetailComponent implements OnInit {
   	this.pokemonService.getPokemon(id)
   		.subscribe(pokemon => this.pokemon = pokemon);
   }
+
+  /* Navigates backwards one step in the browser's history stack. */
+  goBack(): void {
+  	this.location.back();
+  }
 }
