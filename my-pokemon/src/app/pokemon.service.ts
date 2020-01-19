@@ -12,6 +12,8 @@ import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
 import { POKEMONS } from './mock-pokemon';
 
+import { Observable, of } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,7 +21,8 @@ export class PokemonService {
 
   constructor() { }
 
-  getPokemons(): Pokemon[] {
-  	return POKEMONS;
+  /* Returns an Observable<Pokemon[]> that emits a single value, an array of mock Pokemon. */
+  getPokemons(): Observable<Pokemon[]> {
+  	return of(POKEMONS);
   }
 }

@@ -45,8 +45,12 @@ export class PokemonComponent implements OnInit {
   	this.selectedPokemon = pokemon;
   }
 
+  /* 
+  		Wait for the Observable to emit the array of Pokemons asynchronously. The subscribe() method passes the emitted array to the callback, which sets the component's pokemons property.
+  */
   getPokemon(): void {
-  	this.pokemons = this.pokemonService.getPokemons();
-  	console.log(this.pokemons);
+  	this.pokemonService.getPokemons()
+  		.subscribe(pokemons => this.pokemons = pokemons);
+  	//this.pokemons = this.pokemonService.getPokemons();
   }
 }
