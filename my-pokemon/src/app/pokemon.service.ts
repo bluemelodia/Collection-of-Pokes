@@ -13,16 +13,26 @@ import { Pokemon } from './pokemon';
 import { POKEMONS } from './mock-pokemon';
 
 import { Observable, of } from 'rxjs';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
 
-  constructor() { }
+  /* Angular will inject the singleton MessageService into this property
+  	when it creates the PokemonService. 
+
+	This is a typical "service-in-service" scenario: you inject 
+	the MessageService into the HeroService which is injected 
+	into the HeroesComponent.
+
+  	*/
+  constructor(private messageService: MessageService) { }
 
   /* Returns an Observable<Pokemon[]> that emits a single value, an array of mock Pokemon. */
   getPokemons(): Observable<Pokemon[]> {
+  	this.messageService.add('PokemonService: fetched Pokemons');
   	return of(POKEMONS);
   }
 }

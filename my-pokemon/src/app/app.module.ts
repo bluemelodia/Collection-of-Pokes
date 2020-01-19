@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
+import { MessagesComponent } from './messages/messages.component';
 
 /* 
   declarations - application components
@@ -20,7 +21,8 @@ import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.componen
   declarations: [
     AppComponent,
     PokemonComponent,
-    PokemonDetailComponent
+    PokemonDetailComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
