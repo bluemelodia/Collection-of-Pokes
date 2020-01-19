@@ -15,10 +15,19 @@ import { POKEMONS } from './mock-pokemon';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
+  /*
+    Define the pokemonUrl of the form :base/:collectionName with the
+    address of the pokemon resource on the server. Here base is the
+    resource to which requests are made, and collectionName is 
+    the pokemons data object in the in-memory-data-service.ts.
+  */
+  private pokemonsUrl = 'api/pokemons'; // URL to web api
 
   /* Angular will inject the singleton MessageService into this property
   	when it creates the PokemonService. 
@@ -28,17 +37,29 @@ export class PokemonService {
 	into the HeroesComponent.
 
   	*/
-  constructor(private messageService: MessageService) { }
+  constructor(
+    private http: HttpClient, 
+    private messageService: MessageService) { }
 
   /* Returns an Observable<Pokemon[]> that emits a single value, an array of mock Pokemon. */
-  getPokemons(): Observable<Pokemon[]> {
-  	this.messageService.add('PokemonService: fetched Pokemons');
-  	return of(POKEMONS);
-  }
+  // getPokemons(): Observable<Pokemon[]> {
+  // 	this.log('fetched Pokemons');
+  // 	return of(POKEMONS);
+  // }
   
+  /* Get Pokemons from the server. */
+  getPokemons(): Observable<Pokemon[]> {
+    return this.http.get<Pokemon[]>(this.pokemonsUrl);
+  }
+
   /* It returns a mock hero as an Observable, using the RxJS of() function. */
   getPokemon(id: number): Observable<Pokemon> {
-  	this.messageService.add(`PokemonService: fetched Pokemon id=${id}`);
+  	this.log(`fetched Pokemon id=${id}`);
   	return of(POKEMONS.find(pokemon => pokemon.id === id));
+  }
+
+  /* Log a PokemonService message. */
+  private log(message: string) {
+    this.messageService.add(`PokemonService: ${message}`);
   }
 }
