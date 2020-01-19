@@ -4,5 +4,19 @@
 <h1>{{title}}</h1>
 
 <!-- element selector for the PokemonComponent. -->
-<app-pokemon></app-pokemon>
+<!--<app-pokemon></app-pokemon>-->
+
+<!-- routerLink attribute is set to /pokemon, the string that the
+router matches to the route to PokemonComponent.
+
+The routerLink is the selector for the RouterLink directive that turns user clicks into router navigations. It's another of the public directives in the RouterModule. -->
+<nav>
+  <a routerLink="/pokemon">Pokemon</a>
+</nav>
+
+<!-- Tells the router where to display routed views. 
+The RouterOutlet directive became available to the AppComponent
+because the AppModule imports AppRoutingModule, which exports
+RouterModule. -->
+<router-outlet></router-outlet>
 <app-messages></app-messages>
