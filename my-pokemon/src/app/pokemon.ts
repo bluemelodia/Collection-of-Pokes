@@ -4,4 +4,5 @@ export class Pokemon {
 	species: string;
 	type: string;
 	name: string;
+	id: number;
 }

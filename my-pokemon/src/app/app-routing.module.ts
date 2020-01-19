@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 /* Allows the app to have routing functionality. */
 import { RouterModule, Routes } from '@angular/router';
 import { PokemonComponent } from './pokemon/pokemon.component';
+import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 /* Routes tell the Router which view to display when a user clicks
@@ -16,10 +17,14 @@ matches the empty path to the route whose path is '/dashboard'.
 Without this, the router doesn't navigate anywhere when the app starts,
 and the space below the <router-outlet> is blank.
 
+The : in the path indicates that :id is a placeholder for a specific
+Pokemon id.
+
 */
 const routes: Routes = [
 	{ path: 'pokemon', component: PokemonComponent },
 	{ path: 'dashboard', component: DashboardComponent },
+	{ path: 'detail/:id', component: PokemonDetailComponent },
 	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 

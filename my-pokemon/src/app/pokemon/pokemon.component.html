@@ -20,12 +20,13 @@ Here it binds the pokemon.name property to the HTML textbox so that data can flo
 		class binding - allows us to add/remove a CSS class conditionally.
 		when the condition is true, Angular adds the selected CSS class,
 		else it removes the class. -->
-	<li *ngFor="let pokemon of pokemons" 
-	   (click)="onSelect(pokemon)"
- 	   [class.selected]="pokemon === selectedPokemon">
-		<span class="pokeid">
-			{{pokemon.dex}} - {{pokemon.species | uppercase}}
-		</span> {{pokemon.name}}
+	<li *ngFor="let pokemon of pokemons">
+		<a routerLink="/detail/{{pokemon.id}}">
+			<span class="pokeid">
+				{{pokemon.dex}} - {{pokemon.species | uppercase}}
+			</span> {{pokemon.name}}
+		</a>
+
 	</li>
 </ul>
 
@@ -34,5 +35,5 @@ Here it binds the pokemon.name property to the HTML textbox so that data can flo
 
 	property binding is one-way data binding from the PokemonComponent's
 	selectedPokemon property to the child PokemonDetailComponent's pokemon property, which maps to the pokemon property of the PokemonDetailComponent. When user selects a Pokemon, the property binding updates pokemon, and the PokemonDetailComponent shows the new Pokemon. -->
-<app-pokemon-detail [pokemon]="selectedPokemon"></app-pokemon-detail>
+<!--<app-pokemon-detail [pokemon]="selectedPokemon"></app-pokemon-detail>-->
 

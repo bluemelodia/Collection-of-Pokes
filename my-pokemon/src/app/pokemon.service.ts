@@ -35,4 +35,10 @@ export class PokemonService {
   	this.messageService.add('PokemonService: fetched Pokemons');
   	return of(POKEMONS);
   }
+  
+  /* It returns a mock hero as an Observable, using the RxJS of() function. */
+  getPokemon(id: number): Observable<Pokemon> {
+  	this.messageService.add(`PokemonService: fetched Pokemon id=${id}`);
+  	return of(POKEMONS.find(pokemon => pokemon.id === id));
+  }
 }

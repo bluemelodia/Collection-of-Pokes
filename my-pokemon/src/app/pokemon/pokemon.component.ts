@@ -22,7 +22,7 @@ The CLI generated three metadata properties:
 }) /* Always export the component class so that it can be imported elsewhere, like in the AppModule. */
 export class PokemonComponent implements OnInit {
 
-  selectedPokemon: Pokemon;
+  //selectedPokemon: Pokemon;
   pokemons: Pokemon[];
 
   /* 
@@ -41,12 +41,21 @@ export class PokemonComponent implements OnInit {
   	this.getPokemon();
   }
 
-  onSelect(pokemon: Pokemon): void {
+  /*
+	Previously, the parent HeroesComponent set the 
+	PokemonDetailComponent.pokemon property and the PokemonDetailComponent 
+	displayed the hero.
+
+	PokemonComponent doesn't do that anymore. Now the router 
+	creates the PokemonDetailComponent in response to a URL 
+	such as ~/detail/11.
+  */
+  /*onSelect(pokemon: Pokemon): void {
   	this.selectedPokemon = pokemon;
-  }
+  }*/
 
   /* 
-  		Wait for the Observable to emit the array of Pokemons asynchronously. The subscribe() method passes the emitted array to the callback, which sets the component's pokemons property.
+  	Wait for the Observable to emit the array of Pokemons asynchronously. The subscribe() method passes the emitted array to the callback, which sets the component's pokemons property.
   */
   getPokemon(): void {
   	this.pokemonService.getPokemons()
