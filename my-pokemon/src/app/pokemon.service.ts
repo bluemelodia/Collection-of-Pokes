@@ -31,6 +31,10 @@ export class PokemonService {
   */
   private pokemonsUrl = 'api/pokemons'; // URL to web api
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type' : 'application-json' })
+  };
+
   /* Angular will inject the singleton MessageService into this property
   	when it creates the PokemonService. 
 
@@ -60,18 +64,70 @@ export class PokemonService {
 
   The following handleError() method reports the error and then
   returns an innocuous result so that the application keeps working.
+
+  ==============================================================
+
+  The PokemonService methods will tap into the flow of observable
+  values and send a message, via the log() method, to the message
+  area at the bottom of the page.
+
+  They'll do that with the RxJS tap() operator, which looks at
+  the observable values, does something with those values, and
+  passes them along. The tap() call back doesn't touch the 
+  values themselves.
 */
   getPokemons(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>(this.pokemonsUrl)
       .pipe(
+          tap(_ => this.log('fetched pokemons')),
           catchError(this.handleError<Pokemon[]>('getPokemons', []))
       );
   }
 
-  /* It returns a mock hero as an Observable, using the RxJS of() function. */
+  /* It returns a mock hero as an Observable, using 
+  the RxJS of() function. */
+
+  /* GET Pokemon by id, will 404 if id not found.
+
+  There are three significant differences from getPokemons():
+
+    - getPokemon() constructs a request URL with the desired 
+      pokemon's id.
+    - The server should respond with a single pokemon rather 
+      than an array of pokemon.
+    - getPokemon() returns an Observable<Pokemon> 
+      ("an observable of Pokemon objects") rather than an 
+      observable of pokemon arrays.
+ */
   getPokemon(id: number): Observable<Pokemon> {
-  	this.log(`fetched Pokemon id=${id}`);
-  	return of(POKEMONS.find(pokemon => pokemon.id === id));
+  	//this.log(`fetched Pokemon id=${id}`);
+    const url = `${this.pokemonsUrl}/${id}`;
+    return this.http.get<Pokemon>(url).pipe(
+        tap(_ => this.log(`fetched Pokemon id=${id}`)),
+        catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
+    );
+  	//return of(POKEMONS.find(pokemon => pokemon.id === id));
+  }
+
+  /** PUT: update the pokemon on the server 
+
+  The HttpClient.put() method takes three parameters:
+    the URL
+    the data to update (the modified pokemon in this case)
+    options
+
+  The URL is unchanged. The pokemon web API knows which pokemon
+  to update by looking at the pokemon's id.
+
+  The pokemon web API expects a special header in 
+  HTTP save requests. That header is in the httpOptions
+  constant defined in the PokemonService.
+  */
+  updatePokemon(pokemon: Pokemon): Observable<any> {
+      return this.http.put(this.pokemonsUrl, pokemon, this.httpOptions).pipe(
+          tap(_ => this.log(`updated Pokemon id=${id}`)),
+          catchError(this.handleError<any>(`updateHero`))
+      );
   }
 
   /* Log a PokemonService message. */

@@ -70,4 +70,11 @@ export class PokemonDetailComponent implements OnInit {
   goBack(): void {
   	this.location.back();
   }
+
+  /* persist name changes using the PokemonService updatePokemon()
+  method, then navigates back to the previous view. */
+  save(): void {
+    this.pokemonService.updatePokemon(this.pokemon)
+      .subscribe(() => this.goBack());
+  }
 }

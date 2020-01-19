@@ -48,6 +48,16 @@ Other APIs may bury the data that you want within an object. You might have to d
 Although not discussed here, there's an example of map() in the getHeroNo404() method included in the sample source code.
 
 
+## angular-in-memory-web-api genID
+
+Collection items are presumed to have a primary key property called id.
+
+You can specify the id while adding a new item. The service will blindly use that id; it does not check for uniqueness.
+
+If you do not specify the id, the service generates one via the genId method.
+
+You can override the default id generator with a method called genId in your InMemoryDbService. Your method receives the new item’s collection and collection name. It should return the generated id. If your generator returns null|undefined, the service uses the default generator.
+
 __________________________________________________________________________
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
