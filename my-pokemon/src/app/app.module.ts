@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
+import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
 
 /* 
   declarations - application components
@@ -18,7 +19,8 @@ import { PokemonComponent } from './pokemon/pokemon.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonComponent
+    PokemonComponent,
+    PokemonDetailComponent
   ],
   imports: [
     BrowserModule,

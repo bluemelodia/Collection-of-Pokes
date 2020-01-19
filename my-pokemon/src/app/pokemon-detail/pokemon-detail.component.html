@@ -1,0 +1,11 @@
+<!-- when selectedPokemon is undefined, ngIf removes the detail from the DOM, hence there are no selectedPokemon bindings to consider. When the user picks a Pokemon, selectedPokemon has a value, and ngIf puts the Pokemon detail into the DOM. -->
+<div *ngIf="pokemon">
+	<h2>{{pokemon.dex}} - {{pokemon.species | uppercase}} - {{pokemon.name}}</h2>
+	<div>
+		<label>Name: 
+			<input [(ngModel)]="pokemon.name" placeholder={{pokemon.species}}/>
+		</label>
+	</div>
+	<div><span>Type: {{pokemon.type}}</span></div>
+	<div><span>CP: {{pokemon.cp}}</span></div>
+</div>

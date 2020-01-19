@@ -29,14 +29,10 @@ Here it binds the pokemon.name property to the HTML textbox so that data can flo
 	</li>
 </ul>
 
-<!-- when selectedPokemon is undefined, ngIf removes the detail from the DOM, hence there are no selectedPokemon bindings to consider. When the user picks a Pokemon, selectedPokemon has a value, and ngIf puts the Pokemon detail into the DOM. -->
-<div *ngIf="selectedPokemon">
-	<h2>{{selectedPokemon.dex}} - {{selectedPokemon.species | uppercase}} - {{selectedPokemon.name}}</h2>
-	<div>
-		<label>Name: 
-			<input [(ngModel)]="selectedPokemon.name" placeholder={{selectedPokemon.species}}/>
-		</label>
-	</div>
-	<div><span>Type: {{selectedPokemon.type}}</span></div>
-	<div><span>CP: {{selectedPokemon.cp}}</span></div>
-</div>
+<!-- child component, controlled by the parent PokemonComponent
+	the parent sends this component a new Pokemon to display on user selection from the list 
+
+	property binding is one-way data binding from the PokemonComponent's
+	selectedPokemon property to the child PokemonDetailComponent's pokemon property, which maps to the pokemon property of the PokemonDetailComponent. When user selects a Pokemon, the property binding updates pokemon, and the PokemonDetailComponent shows the new Pokemon. -->
+<app-pokemon-detail [pokemon]="selectedPokemon"></app-pokemon-detail>
+
