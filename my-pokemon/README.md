@@ -19,6 +19,34 @@
 
 - Angular libraries are NgModules (ex. FormModules), as are many third party libraries. More info: https://angular.io/guide/ngmodules
 
+## WebAPI
+
+This tutorial sample mimics communication with a remote data server by using the In-memory Web API module.
+
+After installing the module, the app will make requests to and receive responses from the HttpClient without knowing that the In-memory Web API is intercepting those requests, applying them to an in-memory data store, and returning simulated responses.
+
+By using the In-memory Web API, you won't have to set up a server to learn about HttpClient.
+
+##HttpClient
+
+All HttpClient methods return an RxJS Observable of something.
+
+HTTP is a request/response protocol. You make a request, it returns a single response.
+
+In general, an observable can return multiple values over time. An observable from HttpClient always emits a single value and then completes, never to emit again.
+
+This particular HttpClient.get() call returns an Observable<Pokemon[]>; that is, "an observable of pokemon arrays". In practice, it will only return a single pokemon array.
+
+##HttpClient.get() returns response data
+
+HttpClient.get() returns the body of the response as an untyped JSON object by default. Applying the optional type specifier, <Pokemon[]>, gives you a typed result object.
+
+The server's data API determines the shape of the JSON data. The Tour of Heroes data API returns the pokemon data as an array.
+
+Other APIs may bury the data that you want within an object. You might have to dig that data out by processing the Observable result with the RxJS map() operator.
+
+Although not discussed here, there's an example of map() in the getHeroNo404() method included in the sample source code.
+
 
 __________________________________________________________________________
 

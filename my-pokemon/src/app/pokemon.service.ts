@@ -13,6 +13,8 @@ import { Pokemon } from './pokemon';
 import { POKEMONS } from './mock-pokemon';
 
 import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
 import { MessageService } from './message.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -48,8 +50,22 @@ export class PokemonService {
   // }
   
   /* Get Pokemons from the server. */
+  /* To catch errors, you "pipe" the observable result from http.get()
+  through an RxJS catchError() operator. We extend the observable 
+  result with the pipe() method and give it a catchError() operator. 
+
+  The catchError() operator intercepts an Observable that failed. 
+  It passes the error an error handler that can do what it wants 
+  with the error.
+
+  The following handleError() method reports the error and then
+  returns an innocuous result so that the application keeps working.
+*/
   getPokemons(): Observable<Pokemon[]> {
-    return this.http.get<Pokemon[]>(this.pokemonsUrl);
+    return this.http.get<Pokemon[]>(this.pokemonsUrl)
+      .pipe(
+          catchError(this.handleError<Pokemon[]>('getPokemons', []))
+      );
   }
 
   /* It returns a mock hero as an Observable, using the RxJS of() function. */
@@ -61,5 +77,40 @@ export class PokemonService {
   /* Log a PokemonService message. */
   private log(message: string) {
     this.messageService.add(`PokemonService: ${message}`);
+  }
+
+  /*
+    The following handleError() will be shared by many PokemonService
+    methods so it's generalized to meet their different needs.
+
+    Instead of handling the error directly, it returns an error
+    handler function to catchError that it has configured with both
+    the name of the operation that failed and a safe return value.
+
+    After reporting the error to the console, the handler 
+    constructs a user friendly message and returns a safe value
+    to the app so the app can keep working.
+
+  Because each service method returns a different kind of 
+  Observable result, handleError() takes a type parameter 
+  so it can return the safe value as the type that the app expects.
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }
