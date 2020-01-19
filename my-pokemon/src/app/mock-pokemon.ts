@@ -15,6 +15,13 @@ export const POKEMONS: Pokemon[] = [
 	  	name: "Broccoli",
 	  	type: "Rock/Dark"
   	},
+  	{
+	  	dex: 384,
+	  	cp: 3834,
+	  	species: "Tyranitar",
+	  	name: "Cabbage",
+	  	type: "Rock/Dark"
+  	},
 	{
 	  	dex: 384,
 	  	cp: 3835,
@@ -27,6 +34,13 @@ export const POKEMONS: Pokemon[] = [
 	  	cp: 4038,
 	  	species: "Dialga",
 	  	name: "Yue",
+	  	type: "Steel/Dragon"
+  	},
+  	{
+	  	dex: 483,
+	  	cp: 4038,
+	  	species: "Dialga",
+	  	name: "Yang",
 	  	type: "Steel/Dragon"
   	},
   	{

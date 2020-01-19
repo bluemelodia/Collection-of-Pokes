@@ -3,15 +3,24 @@ import { NgModule } from '@angular/core';
 /* Allows the app to have routing functionality. */
 import { RouterModule, Routes } from '@angular/router';
 import { PokemonComponent } from './pokemon/pokemon.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 /* Routes tell the Router which view to display when a user clicks
 a link or pastes a URL into the browser address bar. 
 
     path: a string that matches the URL in the browser address bar.
     component: the component that the router should create when navigating to this route.
+
+Added a default route: This route redirects a URL that fully 
+matches the empty path to the route whose path is '/dashboard'.
+Without this, the router doesn't navigate anywhere when the app starts,
+and the space below the <router-outlet> is blank.
+
 */
 const routes: Routes = [
-	{ path: 'pokemon', component: PokemonComponent }
+	{ path: 'pokemon', component: PokemonComponent },
+	{ path: 'dashboard', component: DashboardComponent },
+	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
 /*
