@@ -62,4 +62,61 @@ export class PokemonComponent implements OnInit {
   		.subscribe(pokemons => this.pokemons = pokemons);
   	//this.pokemons = this.pokemonService.getPokemons();
   }
+
+/*
+  When the fields are non-blank, the handler creates a 
+  Pokemon-like object from the name (it's only missing the id)
+  and passes it to the services addPokemon() method.
+
+  When addPokemon() saves successfully, the subscribe() 
+  callback receives the new pokemon and pushes it into to the
+  pokemons list for display.
+*/
+  add(cp: number, dex: number, species: string, type: string, 
+    name: string): void {
+      name = name.trim();
+      if (!name) { return; }
+
+      species = species.trim();
+      if (!species) { return; }
+
+      type = type.trim();
+      if (!type) { return; }
+
+      this.pokemonService.addPokemon({ 
+          cp: cp,
+          dex: dex,
+          species: species,
+          type: type,
+          name: name
+      } as Pokemon)
+        .subscribe(pokemon => {
+            this.pokemons.push(pokemon);
+        });
+  }
+
+  /*
+  Although the component delegates pokemon deletion to the 
+  PokemonService, it remains responsible for updating its 
+  own list of pokemons. The component's delete() method
+  immediately removes the pokemon-to-delete from that list,
+  anticipating that the PokemonService will succeed on the server.
+
+  There's really nothing for the component to do with the 
+  Observable returned by pokemonService.delete() but 
+  it must subscribe anyway.
+
+  If you neglect to subscribe(), the service will not 
+  send the delete request to the server. 
+  As a rule, an Observable does nothing until something subscribes.
+
+  Confirm this for yourself by temporarily removing the subscribe(),
+  clicking "Dashboard", then clicking "Poke,mons". 
+  You'll see the full list of pokemons again.
+
+  */
+  delete(pokemon: Pokemon): void {
+      this.pokemons = this.pokemons.filter(p => p !== pokemon);
+      this.pokemonService.deletePokemon(pokemon).subscribe();
+  }
 }

@@ -10,6 +10,28 @@ Here it binds the pokemon.name property to the HTML textbox so that data can flo
 <!-- use a pipe for the species, pipes are good for formatting display data -->
 
 <h2>My Pokemon</h2>
+<div>
+	<label>Name: 
+		<input #pokemonName />
+	</label>
+	<label>Dex Number: 
+		<input #pokemonDex />
+	</label>
+	<label>Species: 
+		<input #pokemonSpecies />
+	</label>
+	<label>CP: 
+		<input #pokemonCP />
+	</label>
+	<label>Type: 
+		<input #pokemonType />
+	</label>
+	<!-- (click) passes input value to add() and then clears the input -->
+	<button (click)="add(pokemonCP.value, pokemonDex.value, pokemonSpecies.value, pokemonType.value, pokemonName.value); pokemonCP.value=''; pokemonDex.value=''; pokemonSpecies.value=''; pokemonType.value=''; pokemonName.value=''">
+		Add
+	</button>
+</div>
+
 <ul class="pokemons">
 	<!-- ngFor is a repeater directive, repeats the host element (in this case, li) for each element in a list
 
@@ -26,7 +48,7 @@ Here it binds the pokemon.name property to the HTML textbox so that data can flo
 				{{pokemon.dex}} - {{pokemon.species | uppercase}}
 			</span> {{pokemon.name}}
 		</a>
-
+		<button class="delete" title="delete pokemon" (click)="delete(pokemon)">x</button>
 	</li>
 </ul>
 

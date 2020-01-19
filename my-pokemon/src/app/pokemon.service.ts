@@ -130,6 +130,44 @@ export class PokemonService {
       );
   }
 
+
+  /*
+      addPokemon() differs from updatePokemon() in two ways:
+
+      It calls HttpClient.post() instead of put().
+      It expects the server to generate an id for the new pokemon,
+       which it returns in the Observable<Pokemon> to the caller.
+
+  */
+  addPokemon(pokemon: Pokemon): Observable<Pokemon> {
+      return this.http.post<Pokemon>(this.pokemonsUrl, pokemon,
+        this.httpOptions).pipe(
+          tap((newPokemon: Pokemon) => this.log(`add Pokemon with id=${newPokemon.id}`)),
+          catchError(this.handleError<Pokemon>('addPokemon'))
+      );
+  }
+
+  /** DELETE: delete the pokemon from the server 
+
+  Note the following key points:
+
+    deletePokemon() calls HttpClient.delete().
+    The URL is the pokemon resource URL plus the 
+      id of the pokemon to delete.
+    You don't send data as you did with put() and post().
+    You still send the httpOptions.
+
+  */
+  deletePokemon(pokemon: Pokemon | number): Observable<Hero> {
+      const id = typeof Pokemon === 'number' ? pokemon: pokemon.id;
+      const url = `${this.pokemonsUrl}/${id}`;
+
+      return this.http.delete<Pokemon>(url, this.httpOptions).pipe(
+          tap(_ => this.log(`deleted pokemon id=${id}`)),
+          catchError(this.handleError<Pokemon>('deletePokemon'))
+      );
+  }
+
   /* Log a PokemonService message. */
   private log(message: string) {
     this.messageService.add(`PokemonService: ${message}`);
