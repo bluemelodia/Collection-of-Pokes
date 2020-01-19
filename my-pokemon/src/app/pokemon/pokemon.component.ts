@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../pokemon';
 
-import { POKEMONS } from '../mock-pokemon';
+import { PokemonService } from '../pokemon.service';
 
 /* 
 
@@ -23,18 +23,30 @@ The CLI generated three metadata properties:
 export class PokemonComponent implements OnInit {
 
   selectedPokemon: Pokemon;
-  pokemons = POKEMONS;
-
-  constructor() { }
+  pokemons: Pokemon[];
 
   /* 
-  	Lifecycle hook, called shortly by Angular after creating a component. 
-  	Initialization logic goes here. 
+  This parameter defines a private pokemonService property and identifies it as a PokemonService injection site.
+
+  When Angular creates a PokemonComponent, the DI system sets the pokemonService parameter to the singleton instance of PokemonService.
+
+  Save this for simple initialization such as wiring constructor parameters to properties. The constructor shouldn't do anything.
+  */
+  constructor(private pokemonService: PokemonService) { }
+
+  /* 
+  	Lifecycle hook, called shortly by Angular after creating a component/constructing a component instance. Initialization logic goes here. 
   */
   ngOnInit() {
+  	this.getPokemon();
   }
 
   onSelect(pokemon: Pokemon): void {
   	this.selectedPokemon = pokemon;
+  }
+
+  getPokemon(): void {
+  	this.pokemons = this.pokemonService.getPokemons();
+  	console.log(this.pokemons);
   }
 }
