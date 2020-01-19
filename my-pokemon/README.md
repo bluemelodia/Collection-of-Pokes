@@ -58,6 +58,14 @@ If you do not specify the id, the service generates one via the genId method.
 
 You can override the default id generator with a method called genId in your InMemoryDbService. Your method receives the new item’s collection and collection name. It should return the generated id. If your generator returns null|undefined, the service uses the default generator.
 
+## switchMap
+
+With the switchMap operator, every qualifying key event can trigger an HttpClient.get() method call. Even with a 300ms pause between requests, you could have multiple HTTP requests in flight and they may not return in the order sent.
+
+switchMap() preserves the original request order while returning only the observable from the most recent HTTP method call. Results from prior calls are canceled and discarded.
+
+Note that canceling a previous searchPokemons() Observable doesn't actually abort a pending HTTP request. Unwanted results are simply discarded before they reach your application code.
+
 __________________________________________________________________________
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.

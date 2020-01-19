@@ -168,6 +168,18 @@ export class PokemonService {
       );
   }
 
+  /* GET heroes whose name contains search term. */
+  searchPokemon(term: string): Observable<Pokemon[]> {
+    if (!term.trim()) {
+      // if not search term, return empty Pokemon array
+      return of([]);
+    }
+    return this.http.get<Pokemon[]>(`${this.pokemonsUrl}/?name=${term}`).pipe(
+        tap(_ => this.log(`found pokemons matching "${term}"`)),
+        catchError(this.handleError<Pokmeon[]>('searchPokemons', []))
+    );
+  }
+
   /* Log a PokemonService message. */
   private log(message: string) {
     this.messageService.add(`PokemonService: ${message}`);

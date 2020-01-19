@@ -20,6 +20,7 @@ import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.componen
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PokemonSearchComponent } from './pokemon-search/pokemon-search.component';
 
 /* 
   declarations - application components
@@ -31,7 +32,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     PokemonComponent,
     PokemonDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    PokemonSearchComponent
   ],
   imports: [
     BrowserModule,
